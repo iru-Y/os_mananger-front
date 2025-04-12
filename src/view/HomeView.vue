@@ -6,7 +6,7 @@
     <InputLogin imagePath= "src/assets/adress.svg" description="Endereço Completo"/>
     <InputLogin imagePath= "src/assets/email.svg" description="Email"/>
     <div class="button-wrapper">
-        <DefaultButton class="submit-btn" />
+        <DefaultButton class="submit-btn" subimitText="Concluído" @click=""/>
       </div>
   </div>
  
@@ -22,7 +22,8 @@ export default defineComponent({
   name: "HomeView",
   components: {
     InputLogin, DefaultButton
-  }
+  },
+  
 })
 
 </script>
