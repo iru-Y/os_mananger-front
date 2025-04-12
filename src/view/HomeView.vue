@@ -17,13 +17,22 @@
 import DefaultButton from "@/components/DefaultButton.vue";
 import InputLogin from "@/components/InputLogin.vue";
 import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "HomeView",
   components: {
     InputLogin, DefaultButton
   },
-  
+  setup () {
+    const router = useRouter();
+
+const goToNextPage = () => {
+  router.push('/proxima-pagina');
+};
+
+return { goToNextPage };
+  }
 })
 
 </script>
