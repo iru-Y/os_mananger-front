@@ -1,49 +1,76 @@
 <template>
- <div class="body">
-  <div class="form">
-    <InputLogin imagePath= "src/assets/person.svg" description="Nome"/>
-    <InputLogin imagePath= "src/assets/phone.svg" description="Telefone"/>
-    <InputLogin imagePath= "src/assets/adress.svg" description="Endereço Completo"/>
-    <InputLogin imagePath= "src/assets/email.svg" description="Email"/>
-    <InputLogin imagePath= "src/assets/email.svg" description="Problema"/>
-    <div class="button-wrapper">
-        <DefaultButton class="submit-btn" subimitText="Concluído" @click='goToNextPage'/>
-      </div>
+  <div class="body">
+   <form class="form" @submit.prevent="handleSubmit">
+     <InputLogin v-model="formData.full_name" imagePath="src/assets/person.svg" description="Nome"/>
+     <InputLogin v-model="formData.phone" imagePath="src/assets/phone.svg" description="Telefone"/>
+     <InputLogin v-model="formData.full_address" imagePath="src/assets/adress.svg" description="Endereço Completo"/>
+     <InputLogin v-model="formData.email" imagePath="src/assets/email.svg" description="Email"/>
+     
+     <div class="button-wrapper">
+       <DefaultButton 
+         class="submit-btn" 
+         subimitText="Concluído" 
+         type="submit"
+       />
+     </div>
+   </form>
   </div>
+ </template>
  
- </div>
-</template>
-
-<script lang="ts">
-import DefaultButton from "@/components/DefaultButton.vue";
-import InputLogin from "@/components/InputLogin.vue";
-import { fetchAllCustomers } from "@/domain/fetch/customer_fetch";
-import { defineComponent, onMounted } from "vue";
-import { useRouter } from "vue-router";
-
-export default defineComponent({
-  name: "HomeView",
-  components: {
-    InputLogin, DefaultButton
-  },
-  setup () {
-    const router = useRouter();
-
-const goToNextPage = () => {
-  router.push('/login');
-};
-onMounted(() => {
-  fetchAllCustomers();
-      console.log("Componente HomeView montado");
-    });
-    
-return { goToNextPage };
-
-  }
+ <script lang="ts">
+ import DefaultButton from "@/components/DefaultButton.vue";
+ import InputLogin from "@/components/InputLogin.vue";
+ import { createCustomer, fetchAllCustomers } from "@/domain/fetch/customer_fetch";
+ import { defineComponent, onMounted, reactive } from "vue";
+ import { useRouter } from "vue-router";
  
-})
-
-</script>
+ export default defineComponent({
+   name: "HomeView",
+   components: {
+     InputLogin, 
+     DefaultButton
+   },
+   setup() {
+     const router = useRouter();
+     const formData = reactive({
+       full_name: '',
+       phone: '',
+       full_address: '',
+       email: ''
+     });
+ 
+     const goToNextPage = () => {
+       router.push('/login');
+     };
+ 
+     const handleSubmit = async () => {
+       try {
+         await createCustomer(formData);
+         alert('Cliente cadastrado com sucesso!');
+         Object.assign(formData, {
+           full_name: '',
+           phone: '',
+           full_address: '',
+           email: ''
+         });
+       } catch (error) {
+         alert('Erro ao cadastrar cliente');
+       }
+     };
+ 
+     onMounted(() => {
+       fetchAllCustomers();
+       console.log("Componente HomeView montado");
+     });
+     
+     return { 
+       goToNextPage,
+       formData,
+       handleSubmit 
+     };
+   }
+ });
+ </script>
 
 <style>
 

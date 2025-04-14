@@ -1,37 +1,31 @@
 <template>
-    <button @click='handleClick' :style="{ width: width, height: height }">
-      {{ subimitText }}
-    </button>
-  </template>
-  
-  <script lang="ts">
-  import { defineComponent } from 'vue';
-  
-  export default defineComponent({
+<button @click='handleClick'>
+    {{ subimitText }}
+</button>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
     name: "DefaultButton",
     props: {
-      subimitText: {
-        type: String,
-        default: "botão"
-      },
-      width: {
-        type: String, 
-        default: "93px"
-      },
-      height: {
-        type: String, 
-        default: "30px"
-      }
+        subimitText: {
+            type: String,
+            default: "botão"
+        },
+
     },
     emits: ["click"],
-    setup(props, { emit }) {
-      const handleClick = () => {
-        emit("click");
-      };
-      return { handleClick };
+    setup (props, {emit}) {
+        const handleClick = () => {
+            console.log('clicado')
+            emit("click")
+        }
+        return {handleClick}
     }
-  });
-  </script>
+});
+</script>
 
 <style lang="css" scoped>
 button{
