@@ -5,6 +5,7 @@
     <InputLogin imagePath= "src/assets/phone.svg" description="Telefone"/>
     <InputLogin imagePath= "src/assets/adress.svg" description="Endereço Completo"/>
     <InputLogin imagePath= "src/assets/email.svg" description="Email"/>
+    <InputLogin imagePath= "src/assets/email.svg" description="Problema"/>
     <div class="button-wrapper">
         <DefaultButton class="submit-btn" subimitText="Concluído" @click='goToNextPage'/>
       </div>

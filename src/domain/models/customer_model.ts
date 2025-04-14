@@ -4,5 +4,6 @@ export interface CustomerModel {
     full_address: string;
     full_name: string;
     phone: string;
+    description: string;
   }
   

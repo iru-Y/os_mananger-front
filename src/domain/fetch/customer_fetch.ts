@@ -1,17 +1,26 @@
 import type { CustomerModel } from "@/domain/models/customer_model";
 
-const apiPath = 'http://localhost:8080/api/v1';
+const apiPath = 'http://127.0.0.1:8080/api/v1/';
 
 export async function fetchAllCustomers(): Promise<CustomerModel[]> {
-  const response = await fetch(`${apiPath}/customers`);
+  try {
+    const response = await fetch(`${apiPath}customers`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
 
-  if (!response.ok) {
-    throw new Error(`Erro ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`Erro ${response.status}: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log('Dados recebidos:', data);
+    return data;
+  } catch (error) {
+    console.error('Erro ao buscar clientes:', error);
+    throw error;
   }
-
-  const data = await response.json();
-  
-  console.log('Dados recebidos:', data);
-  
-  return data;
 }
+
