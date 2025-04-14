@@ -5,8 +5,8 @@ import HomeHeader from '@/view/HomeHeader.vue';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/login', component: HomeView },
-    { path: '/', component: HomeHeader } 
+    { path: '/', component: HomeView },
+    { path: '/login', component: HomeHeader } 
   ]
 });
 

@@ -6,7 +6,7 @@
     <InputLogin imagePath= "src/assets/adress.svg" description="Endereço Completo"/>
     <InputLogin imagePath= "src/assets/email.svg" description="Email"/>
     <div class="button-wrapper">
-        <DefaultButton class="submit-btn" subimitText="Concluído" @click=""/>
+        <DefaultButton class="submit-btn" subimitText="Concluído" @click='goToNextPage'/>
       </div>
   </div>
  
@@ -16,7 +16,8 @@
 <script lang="ts">
 import DefaultButton from "@/components/DefaultButton.vue";
 import InputLogin from "@/components/InputLogin.vue";
-import { defineComponent } from "vue";
+import { fetchAllCustomers } from "@/domain/fetch/customer_fetch";
+import { defineComponent, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
@@ -28,11 +29,17 @@ export default defineComponent({
     const router = useRouter();
 
 const goToNextPage = () => {
-  router.push('/proxima-pagina');
+  router.push('/login');
 };
-
+onMounted(() => {
+  fetchAllCustomers();
+      console.log("Componente HomeView montado");
+    });
+    
 return { goToNextPage };
+
   }
+ 
 })
 
 </script>

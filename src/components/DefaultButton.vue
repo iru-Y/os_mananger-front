@@ -1,5 +1,5 @@
 <template>
-<button @click="$emit('click')">
+<button @click='handleClick'>
     {{ subimitText }}
 </button>
 </template>
@@ -19,8 +19,10 @@ export default defineComponent({
     emits: ["click"],
     setup (props, {emit}) {
         const handleClick = () => {
+            console.log('clicado')
             emit("click")
         }
+        return {handleClick}
     }
 });
 </script>
