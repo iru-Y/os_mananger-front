@@ -22,5 +22,28 @@ export async function fetchAllCustomers(): Promise<CustomerModel[]> {
     console.error('Erro ao buscar clientes:', error);
     throw error;
   }
-}
 
+
+  
+}
+export async function createCustomer(customer: CustomerModel): Promise<CustomerModel> {
+  try {
+    const response = await fetch(`${apiPath}customers`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(customer),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro ${response.status}: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Erro ao criar cliente:', error);
+    throw error;
+  }
+}
