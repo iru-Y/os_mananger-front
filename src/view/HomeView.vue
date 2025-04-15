@@ -5,7 +5,8 @@
      <InputLogin v-model="formData.phone" imagePath="src/assets/phone.svg" description="Telefone"/>
      <InputLogin v-model="formData.full_address" imagePath="src/assets/adress.svg" description="Endereço Completo"/>
      <InputLogin v-model="formData.email" imagePath="src/assets/email.svg" description="Email"/>
-     
+     <InputLogin v-model="formData.description" imagePath="src/assets/description.svg"
+      description="Descrição do problema" height="200px"/>
      <div class="button-wrapper">
        <DefaultButton 
          class="submit-btn" 
@@ -21,6 +22,7 @@
  import DefaultButton from "@/components/DefaultButton.vue";
  import InputLogin from "@/components/InputLogin.vue";
  import { createCustomer, fetchAllCustomers } from "@/domain/fetch/customer_fetch";
+import type { CustomerRequest } from "@/domain/models/customer_model";
  import { defineComponent, onMounted, reactive } from "vue";
  import { useRouter } from "vue-router";
  
@@ -32,11 +34,12 @@
    },
    setup() {
      const router = useRouter();
-     const formData = reactive({
+     const formData = reactive<CustomerRequest>({
        full_name: '',
        phone: '',
        full_address: '',
-       email: ''
+       email: '',
+       description: ''
      });
  
      const goToNextPage = () => {
@@ -47,12 +50,7 @@
        try {
          await createCustomer(formData);
          alert('Cliente cadastrado com sucesso!');
-         Object.assign(formData, {
-           full_name: '',
-           phone: '',
-           full_address: '',
-           email: ''
-         });
+         Object.assign(formData);
        } catch (error) {
          alert('Erro ao cadastrar cliente');
        }
@@ -78,7 +76,6 @@
   display: flex;
   flex-direction: column;
   width: 70%;
-  justify-content: center;
   align-items: center;
   border: 1px solid var(--cor-4);
   border-radius: 12px;
@@ -87,6 +84,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
+  margin: 0px 0px 120px 0px;
 }
 .submit-btn{
   display: flex;

@@ -4,7 +4,10 @@
       <img :src="imagePath" alt="">
       <p class="description">{{ description }}</p>
     </div>
-    <input class="input-field" type="text" :name="name" >
+    <input class="input-field" type="text" :name="name" :style="{ width, height}"
+    :value="modelValue"
+    @input="onInput"
+        >
   </div>
 </template>
 
@@ -13,6 +16,10 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: "InputLogin",
   props: {
+    modelValue: {
+      type: String,
+      default: ""
+    },
     name: {
       type: String,
       default: ""
@@ -25,6 +32,20 @@ export default defineComponent({
     description: {
       type: String,
       default: "Sem descrição"
+    },
+    width: {
+      type: String,
+      default: "750px"
+    },
+    height: {
+      type: String,
+      default: "42px"
+    }
+  },
+  methods: {
+    onInput(e: Event) {
+      const input = e.target as HTMLInputElement;
+      this.$emit('update:modelValue', input.value);
     }
   }
 })
@@ -34,7 +55,7 @@ export default defineComponent({
 .group-input {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: start;
   justify-content: space-between;
   padding: 10px;
   width: 100%;
@@ -52,9 +73,7 @@ export default defineComponent({
   border: 1px solid var(--cor-4);
   border-radius: 4px;
   padding: 5px;
-  height: 42px;
-  min-width: 150px;
-  width: 769px;
+  min-width: 120px;
   caret-color: white;
   outline: none;
   background-color: transparent;
