@@ -1,8 +1,9 @@
 import type { CustomerModel } from "@/domain/models/customer_model";
+import type { ApiResponse } from "./apiResponse";
 
 const apiPath = 'http://127.0.0.1:8080/api/v1/';
 
-export async function fetchAllCustomers(): Promise<CustomerModel[]> {
+export async function fetchAllCustomers(): Promise<ApiResponse<CustomerModel[]>> {
   try {
     const response = await fetch(`${apiPath}customers`, {
       method: 'GET',
@@ -26,7 +27,7 @@ export async function fetchAllCustomers(): Promise<CustomerModel[]> {
 
   
 }
-export async function createCustomer(customer: CustomerModel): Promise<CustomerModel> {
+export async function createCustomer(customer: CustomerModel): Promise<ApiResponse<CustomerModel>> {
   try {
     const response = await fetch(`${apiPath}customers`, {
       method: 'POST',

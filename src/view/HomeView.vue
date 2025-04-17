@@ -48,7 +48,9 @@ import type { CustomerRequest } from "@/domain/models/customer_model";
      const handleSubmit = async () => {
        try {
         const response = await createCustomer(formData);
-
+        if (response.status != 'success') {
+          console.error("Error ao cadastrar o cliente, verifique se o sistema está no ar, ou os campos estão preenchidos corretamente.")
+        } 
          alert('Cliente cadastrado com sucesso!');
          Object.assign(formData);
          goToNextPage();
