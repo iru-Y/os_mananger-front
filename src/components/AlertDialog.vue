@@ -16,7 +16,6 @@
   defineProps<{
     visible: boolean;
     message: string;
-    name: "AlertDialog"
   }>();
   
   const emit = defineEmits(['close']);

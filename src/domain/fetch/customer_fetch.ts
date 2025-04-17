@@ -1,5 +1,5 @@
 import type { CustomerModel } from "@/domain/models/customer_model";
-import type { ApiResponse } from "./apiResponse";
+import type { ApiResponse } from "../models/apiResponse";
 
 const apiPath = 'http://127.0.0.1:8080/api/v1/';
 

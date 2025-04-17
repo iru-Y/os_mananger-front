@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '@/view/HomeView.vue';
+import OsDetails from '@/view/OsDetails.vue';
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: HomeView },
-   // { path: '/login', component: HomeHeader } 
+   { path: '/os-detail', component: OsDetails } 
   ]
 });
 
