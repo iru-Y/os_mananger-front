@@ -10,7 +10,7 @@
      <div class="button-wrapper">
        <DefaultButton 
          class="submit-btn" 
-         subimitText="Concluído" 
+         subimitText="Concluído"
          type="submit"
        />
      </div>
@@ -41,16 +41,17 @@ import type { CustomerRequest } from "@/domain/models/customer_model";
        email: '',
        description: ''
      });
- 
      const goToNextPage = () => {
        router.push('/login');
      };
- 
+     
      const handleSubmit = async () => {
        try {
-         await createCustomer(formData);
+        const response = await createCustomer(formData);
+
          alert('Cliente cadastrado com sucesso!');
          Object.assign(formData);
+         goToNextPage();
        } catch (error) {
          alert('Erro ao cadastrar cliente');
        }
@@ -91,7 +92,8 @@ import type { CustomerRequest } from "@/domain/models/customer_model";
   flex-direction: flex;
   justify-content: end;
   align-items: end;
-}.button-wrapper {
+}
+.button-wrapper {
   display: flex;
   width: 100%; 
   justify-content: flex-end;

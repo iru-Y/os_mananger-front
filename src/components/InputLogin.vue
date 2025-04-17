@@ -4,15 +4,19 @@
       <img :src="imagePath" alt="">
       <p class="description">{{ description }}</p>
     </div>
-    <input class="input-field" type="text" :name="name" :style="{ width, height}"
-    :value="modelValue"
-    @input="onInput"
-        >
+    <textarea
+      class="input-field"
+      :name="name"
+      :style="{ width, height }"
+      :value="modelValue"
+      @input="onInput"
+    ></textarea>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+
 export default defineComponent({
   name: "InputLogin",
   props: {
@@ -28,7 +32,6 @@ export default defineComponent({
       type: String,
       default: ""
     },
-   
     description: {
       type: String,
       default: "Sem descrição"
@@ -39,16 +42,16 @@ export default defineComponent({
     },
     height: {
       type: String,
-      default: "42px"
+      default: "25px"
     }
   },
   methods: {
     onInput(e: Event) {
-      const input = e.target as HTMLInputElement;
+      const input = e.target as HTMLTextAreaElement;
       this.$emit('update:modelValue', input.value);
     }
   }
-})
+});
 </script>
 
 <style>
@@ -75,13 +78,15 @@ export default defineComponent({
   padding: 5px;
   min-width: 120px;
   caret-color: white;
+  color: white;
   outline: none;
   background-color: transparent;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   box-shadow: none;
   transition: none;
+  resize: none;
+  line-height: 1.4;
+  vertical-align: top;
+  font-family: inherit;
 }
 
 .input-field:hover,
@@ -92,19 +97,12 @@ export default defineComponent({
 .input-field:-moz-focusring {
   border: 1px solid var(--cor-4);
   outline: none;
+  color: white;
   box-shadow: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  transition: none;
   caret-color: white;
 }
 
-.input-field::-webkit-input-placeholder {
-  color: #aaa;
-}
-
-.input-field::-moz-placeholder {
+.input-field::placeholder {
   color: #aaa;
 }
 
