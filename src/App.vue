@@ -26,11 +26,8 @@ export default {
 p{
   color: white;
 }
-#app {
- 
-}
+
 .body{
-  display: flex;
   background: var(--cor-1);
 }
 </style>

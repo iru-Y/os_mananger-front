@@ -1,9 +1,9 @@
-import type { CustomerModel } from "@/domain/models/customer_model";
+import type { CustomerModel, CustomerResponse } from "@/domain/models/customer_model";
 import type { ApiResponse } from "../models/apiResponse";
 
 const apiPath = 'http://127.0.0.1:8080/api/v1/';
 
-export async function fetchAllCustomers(): Promise<ApiResponse<CustomerModel[]>> {
+export async function fetchAllCustomers(): Promise<ApiResponse<CustomerResponse[]>> {
   try {
     const response = await fetch(`${apiPath}customers`, {
       method: 'GET',
@@ -23,8 +23,6 @@ export async function fetchAllCustomers(): Promise<ApiResponse<CustomerModel[]>>
     console.error('Erro ao buscar clientes:', error);
     throw error;
   }
-
-
   
 }
 export async function createCustomer(customer: CustomerModel): Promise<ApiResponse<CustomerModel>> {

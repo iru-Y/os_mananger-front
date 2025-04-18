@@ -1,55 +1,33 @@
 <template>
   <div class="body">
-    <p > {{  formData.data.full_name }}</p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
+  <div class="customers-view" v-for="(customer, index) in customers" :key="customer.id">
+    <p>Nome:      {{  customer.full_name }}</p>
+    <p>Telefone:  {{  customer.phone }}</p>
+    <p>Email:     {{  customer.email }}</p>
+    <p>Endereço:  {{  customer.full_address }}</p>
+    <p>Descrição: {{  customer.description }}</p>
+  </div>
   </div>
 </template>
 
 <script lang="ts">
-import type { ApiResponse } from '@/domain/models/apiResponse';
 import { fetchAllCustomers } from '@/domain/fetch/customer_fetch';
 import type { CustomerResponse } from '@/domain/models/customer_model';
 import { onMounted, reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 export default {
   setup() {
-    const feature = ref();
+    const customers = ref<CustomerResponse[]>([]);
 
-    const router = useRouter();
-    const formData = reactive<ApiResponse<CustomerResponse>>({
-    status: '',
-    data:{
-      id: '',
-      full_name: '',
-      phone: '',
-      full_address: '',
-      email: '',
-      description: ''
-    }
+    onMounted(async () => {
+      const response = await fetchAllCustomers();
+      if (response && response.data.length > 0) {
+        customers.value = response.data;
+      }
     });
-//     onMounted(async () => {
-//   const response = await fetchAllCustomers();
-//   if (response && response.data.length > 0) {
-//     formData.status = response.status;
-//     formData.data = response.data[0];
-//   }
-// });
 
     return {
-      feature,
-      formData
+      customers
     };
   },
 };
@@ -57,17 +35,20 @@ export default {
 
 <style lang="css" scoped>
 .body {
-  display: flex;
-  flex-direction: column;
-  width: 70%;
+  max-width: 1000px;
+  margin: auto;
   align-items: center;
   border: 1px solid var(--cor-4);
   border-radius: 12px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   padding: 20px;
-  margin: 0px 0px 120px 0px;
+}
+
+.customers-view{
+  border: 1px solid var(--cor-4);
+  border-radius: 12px;
+  width: 90%;
+  margin: 20px;
+  padding: 20px;
+  
 }
 </style>
